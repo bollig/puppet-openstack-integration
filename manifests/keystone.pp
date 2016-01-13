@@ -72,31 +72,14 @@ class openstack_integration::keystone {
    cinder_config {
 	 'keystone_authtoken/insecure': value => true; 
 	 'keystone_authtoken/auth_version': value => 'v2.0';
-#	 'keystone_authtoken/user_domain_id': value => 'default'; 
-#	 'keystone_authtoken/auth_host': value => '127.0.0.1';
-#	 'keystone_authtoken/service_port': value => '5000';
-#	 'keystone_authtoken/auth_port': value => '35357';
-	 #'keystone_authtoken/auth_uri': value => 'https://127.0.0.1:5000/v2.0';
 	 'keystone_authtoken/auth_protocol': value => 'https';
 	 'keystone_authtoken/service_protocol': value => 'https';
-	 #'DEFAULT/nova_api_insecure': value => true; 
-	 #'DEFAULT/insecure': value => true; 
    }
    cinder_api_paste_ini {
-	 #'keystone_authtoken/insecure': value => true; 
-	 #'keystone_authtoken/auth_version': value => 'v2.0';
-	 #'keystone_authtoken/user_domain_id': value => 'default'; 
 	 'filter:authtoken/auth_version': value => 'v2.0';
-	 #'filter:authtoken/auth_host': value => '127.0.0.1';
-	 #'filter:authtoken/service_port': value => '5000';
-	 #'filter:authtoken/auth_port': value => '35357';
 	 'filter:authtoken/auth_uri': value => 'https://127.0.0.1:5000/v2.0';
 	 'filter:authtoken/identity_uri': value => 'https://127.0.0.1:35357/';
-	 #'filter:authtoken/auth_protocol': value => 'https';
-	 #'filter:authtoken/service_protocol': value => 'https';
 	 'filter:authtoken/insecure': value => true; 
-	 #'DEFAULT/nova_api_insecure': value => true; 
-	 #'DEFAULT/insecure': value => true; 
    }
 
     #keystone::resource::authtoken { 'neutron_api_config':
