@@ -33,7 +33,7 @@ class openstack_integration::nova {
   }
   class { '::nova::api':
     admin_password                       => 'a_big_secret',
-    identity_uri                         => 'http://127.0.0.1:35357/',
+    identity_uri                         => 'https://127.0.0.1:35357/',
     osapi_v3                             => true,
     neutron_metadata_proxy_shared_secret => 'a_big_secret',
     osapi_compute_workers                => 2,
@@ -59,8 +59,10 @@ class openstack_integration::nova {
   class { '::nova::scheduler': }
   class { '::nova::vncproxy': }
   class { '::nova::network::neutron':
-    neutron_admin_password => 'a_big_secret',
-    neutron_admin_auth_url => 'http://127.0.0.1:35357/v2.0',
+    #neutron_admin_password => 'a_big_secret',
+    neutron_password => 'a_big_secret',
+    neutron_auth_url => 'https://127.0.0.1:35357',
+    #neutron_admin_auth_url => 'https://127.0.0.1:35357/v2.0',
   }
 
 }

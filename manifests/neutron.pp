@@ -23,7 +23,7 @@ class openstack_integration::neutron {
   class { '::neutron':
     rabbit_user           => 'neutron',
     rabbit_password       => 'an_even_bigger_secret',
-    rabbit_host           => '127.0.0.1',
+    rabbit_host           => "127.0.0.1",
     allow_overlapping_ips => true,
     core_plugin           => 'ml2',
     service_plugins       => ['router', 'metering'],
@@ -32,12 +32,16 @@ class openstack_integration::neutron {
   }
   class { '::neutron::client': }
   class { '::neutron::server':
-    database_connection => 'mysql+pymysql://neutron:neutron@127.0.0.1/neutron?charset=utf8',
+    database_connection => "mysql+pymysql://neutron:neutron@127.0.0.1/neutron?charset=utf8",
     auth_password       => 'a_big_secret',
-    identity_uri        => 'http://127.0.0.1:35357/',
+    identity_uri        => "https://127.0.0.1:35357",
+    auth_uri        	=> "https://127.0.0.1:5000",
+    auth_region		=> 'RegionOne',
+    auth_tenant		=> 'services',
     sync_db             => true,
-    api_workers         => 4,
+    #api_workers         => 4,
   }
+
   class { '::neutron::plugins::ml2':
     type_drivers         => ['vxlan'],
     tenant_network_types => ['vxlan'],
@@ -45,14 +49,14 @@ class openstack_integration::neutron {
   }
   class { '::neutron::agents::ml2::ovs':
     enable_tunneling => true,
-    local_ip         => '127.0.0.1',
+    local_ip         => "127.0.0.1",
     tunnel_types     => ['vxlan'],
   }
   class { '::neutron::agents::metadata':
     debug            => true,
     auth_password    => 'a_big_secret',
     shared_secret    => 'a_big_secret',
-    metadata_workers => 2,
+    #metadata_workers => 2,
   }
   class { '::neutron::agents::lbaas':
     debug => true,
@@ -68,7 +72,9 @@ class openstack_integration::neutron {
   }
   class { '::neutron::server::notifications':
     nova_admin_password => 'a_big_secret',
+    #nova_admin_auth_url    => 'https://127.0.0.1:35357',
   }
   include ::vswitch::ovs
+
 
 }

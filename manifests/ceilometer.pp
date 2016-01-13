@@ -34,7 +34,7 @@ class openstack_integration::ceilometer {
   class { '::ceilometer::api':
     enabled               => true,
     keystone_password     => 'a_big_secret',
-    keystone_identity_uri => 'http://127.0.0.1:35357/',
+    keystone_identity_uri => 'https://127.0.0.1:35357/',
     service_name          => 'httpd',
   }
   class { '::ceilometer::wsgi::apache':
@@ -47,7 +47,7 @@ class openstack_integration::ceilometer {
   class { '::ceilometer::agent::polling': }
   class { '::ceilometer::agent::auth':
     auth_password => 'a_big_secret',
-    auth_url      => 'http://127.0.0.1:5000/v2.0',
+    auth_url      => 'https://127.0.0.1:5000/v2.0',
   }
 
 }

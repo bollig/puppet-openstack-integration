@@ -20,8 +20,8 @@ class openstack_integration::swift {
   include ::swift::proxy::tempurl
   include ::swift::proxy::ratelimit
   class { '::swift::proxy::authtoken':
-    auth_uri       => 'http://127.0.0.1:5000/v2.0',
-    identity_uri   => 'http://127.0.0.1:35357/',
+    auth_uri       => 'https://127.0.0.1:5000/v2.0',
+    identity_uri   => 'https://127.0.0.1:35357/',
     admin_password => 'a_big_secret',
   }
   class { '::swift::proxy::keystone':

@@ -40,15 +40,15 @@ class openstack_integration::aodh {
       class { '::aodh::api':
         enabled               => true,
         keystone_password     => 'a_big_secret',
-        keystone_identity_uri => 'http://127.0.0.1:35357/',
-        keystone_auth_uri     => 'http://127.0.0.1:35357/',
+        keystone_identity_uri => 'https://127.0.0.1:35357/',
+        keystone_auth_uri     => 'https://127.0.0.1:35357/',
         service_name          => 'httpd',
       }
       class { '::aodh::wsgi::apache':
         ssl => false,
       }
       class { '::aodh::auth':
-        auth_url      => 'http://127.0.0.1:5000/v2.0',
+        auth_url      => 'https://127.0.0.1:5000/v2.0',
         auth_password => 'a_big_secret',
       }
       class { '::aodh::client': }

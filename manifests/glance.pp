@@ -24,23 +24,29 @@ class openstack_integration::glance {
     password => 'a_big_secret',
   }
   class { '::glance::api':
-    debug               => true,
-    verbose             => true,
-    database_connection => 'mysql+pymysql://glance:glance@127.0.0.1/glance?charset=utf8',
+    debug               => false,
+    verbose             => false,
+    database_connection => "mysql+pymysql://glance:glance@127.0.0.1/glance?charset=utf8",
     keystone_password   => 'a_big_secret',
     workers             => 2,
+    identity_uri 	=> 'https://127.0.0.1:35357', 
+    auth_uri 		=> 'https://127.0.0.1:5000', 
+    os_region_name	=> 'RegionOne',
   }
   class { '::glance::registry':
     debug               => true,
     verbose             => true,
-    database_connection => 'mysql+pymysql://glance:glance@127.0.0.1/glance?charset=utf8',
+    database_connection => "mysql+pymysql://glance:glance@127.0.0.1/glance?charset=utf8",
     keystone_password   => 'a_big_secret',
     workers             => 2,
+    identity_uri 	=> 'https://127.0.0.1:35357', 
+    auth_uri 		=> 'https://127.0.0.1:5000', 
+    os_region_name 	=> 'RegionOne',
   }
   class { '::glance::notify::rabbitmq':
     rabbit_userid       => 'glance',
     rabbit_password     => 'an_even_bigger_secret',
-    rabbit_host         => '127.0.0.1',
+    rabbit_host         => "127.0.0.1",
     notification_driver => 'messagingv2',
   }
 

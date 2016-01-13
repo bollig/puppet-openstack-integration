@@ -29,7 +29,7 @@ class openstack_integration::trove {
   }
   class { '::trove::api':
     keystone_password => 'a_big_secret',
-    auth_url          => 'http://127.0.0.1:35357/',
+    auth_url          => 'https://127.0.0.1:35357/',
     debug             => true,
     verbose           => true,
     workers           => 2,

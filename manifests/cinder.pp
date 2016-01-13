@@ -30,9 +30,12 @@ class openstack_integration::cinder {
   }
   class { '::cinder::api':
     keystone_password   => 'a_big_secret',
-    identity_uri        => 'http://127.0.0.1:35357/',
+    identity_uri        => 'https://127.0.0.1:35357/',
     default_volume_type => 'BACKEND_1',
     service_workers     => 2,
+    auth_uri 		=> 'https://127.0.0.1:5000/v2.0',
+    keystone_tenant	=> 'services',
+    os_region_name	=> 'RegionOne',
   }
   class { '::cinder::quota': }
   class { '::cinder::scheduler': }
@@ -43,7 +46,7 @@ class openstack_integration::cinder {
     glance_api_servers  => 'localhost:9292',
   }
   class { '::cinder::setup_test_volume':
-    size => '15G',
+    size => '5G',
   }
   cinder::backend::iscsi { 'BACKEND_1':
     iscsi_ip_address => '127.0.0.1',
@@ -55,7 +58,8 @@ class openstack_integration::cinder {
     os_password    => 'a_big_secret',
     os_tenant_name => 'services',
     os_username    => 'cinder',
-    os_auth_url    => 'http://127.0.0.1:5000/v2.0',
+    os_auth_url    => 'https://127.0.0.1:5000/v2.0',
+    os_region_name => 'RegionOne',
   }
   cinder::type { 'BACKEND_1':
     set_key   => 'volume_backend_name',
