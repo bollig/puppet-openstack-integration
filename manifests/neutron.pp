@@ -71,8 +71,7 @@ class openstack_integration::neutron {
     debug => true,
   }
   class { '::neutron::server::notifications':
-    nova_admin_password => 'a_big_secret',
-    #nova_admin_auth_url    => 'https://127.0.0.1:35357',
+    password => 'a_big_secret',
   }
   include ::vswitch::ovs
 
